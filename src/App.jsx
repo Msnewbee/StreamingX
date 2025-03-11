@@ -5,22 +5,24 @@ import AnimeDetail from "./components/AnimeDetail";
 import animeData from "./data/animeData";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [selectedAnime, setSelectedAnime] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [darkMode, setDarkMode] = useState(() => {
+    return JSON.parse(localStorage.getItem("darkMode")) || false; // Ambil dari localStorage
+  });
 
-  // Muat preferensi dark mode dari localStorage saat komponen pertama kali dimuat
   useEffect(() => {
-    const storedDarkMode = localStorage.getItem("darkMode") === "true";
-    setDarkMode(storedDarkMode);
-  }, []);
+    localStorage.setItem("darkMode", JSON.stringify(darkMode)); // Simpan ke localStorage
+  }, [darkMode]);
 
-  const toggleDarkMode = () => {
-    setDarkMode((prev) => {
-      localStorage.setItem("darkMode", !prev);
-      return !prev;
-    });
-  };
+  const toggleDarkMode = () => setDarkMode((prevMode) => !prevMode);
+
+  return (
+    <div className={darkMode ? "dark" : ""}>
+      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      {/* Komponen lain */}
+    </div>
+  );
+}
+
 
   // Filter daftar anime berdasarkan input pencarian (by title)
   const filteredAnimeList = animeData.filter((anime) =>
