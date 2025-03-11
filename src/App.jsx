@@ -23,7 +23,6 @@ export default function App() {
   );
 }
 
-
   // Filter daftar anime berdasarkan input pencarian (by title)
   const filteredAnimeList = animeData.filter((anime) =>
     anime.title.toLowerCase().includes(searchQuery.toLowerCase())
