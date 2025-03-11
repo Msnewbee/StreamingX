@@ -20,22 +20,5 @@ export default function Header({ darkMode, toggleDarkMode, searchQuery, setSearc
     </header>
   );
 }
-import { useState, useEffect } from "react";
 
-const [searchInput, setSearchInput] = useState("");
-
-useEffect(() => {
-  const timer = setTimeout(() => {
-    setSearchQuery(searchInput);
-  }, 300); // Delay 300ms sebelum pencarian dimulai
-
-  return () => clearTimeout(timer); // Hapus timer saat user masih mengetik
-}, [searchInput]);
-
-<input
-  type="text"
-  placeholder="Cari anime..."
-  value={searchInput}
-  onChange={(e) => setSearchInput(e.target.value)}
-/>
 
