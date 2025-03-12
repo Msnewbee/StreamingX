@@ -9,19 +9,14 @@ export default function App() {
     return JSON.parse(localStorage.getItem("darkMode")) || false; // Ambil dari localStorage
   });
 
+  const [searchQuery, setSearchQuery] = useState(""); // State untuk pencarian
+  const [selectedAnime, setSelectedAnime] = useState(null); // State untuk anime yang dipilih
+
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode)); // Simpan ke localStorage
   }, [darkMode]);
 
   const toggleDarkMode = () => setDarkMode((prevMode) => !prevMode);
-
-  return (
-    <div className={darkMode ? "dark" : ""}>
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {/* Komponen lain */}
-    </div>
-  );
-}
 
   // Filter daftar anime berdasarkan input pencarian (by title)
   const filteredAnimeList = animeData.filter((anime) =>
