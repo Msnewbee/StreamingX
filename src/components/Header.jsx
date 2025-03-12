@@ -1,29 +1,17 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-export default function Header({ darkMode, toggleDarkMode, searchQuery, setSearchQuery }) {
-  const [searchInput, setSearchInput] = useState(searchQuery);
-
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchQuery(searchInput); // Update query setelah user berhenti mengetik
-    }, 300); // Delay 300ms
-
-    return (
-    <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
+export default function Header({ darkMode, toggleDarkMode }) {
+  return (
+    <header className="flex justify-between items-center p-4 shadow-md bg-gray-800 text-white">
+      <h1 className="text-xl font-bold">StreamingX</h1>
       <nav>
-        <Link to="/" className="mr-4">Home</Link>
-        <Link to="/contact" className="mr-4">Kontak</Link>
+        <ul className="flex space-x-4">
+          <li><Link to="/" className="hover:underline">Home</Link></li>
+          <li><Link to="/contact" className="hover:underline">Kontak</Link></li>
+        </ul>
       </nav>
-      <input
-        type="text"
-        placeholder="Cari anime..."
-        className="w-60 p-2 border rounded text-black"
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
+      <button onClick={toggleDarkMode} className="px-2 py-1 bg-gray-600 rounded-md">{darkMode ? "🌙" : "☀️"}</button>
     </header>
   );
-}
-
 }
